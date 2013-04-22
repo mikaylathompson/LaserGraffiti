@@ -4,8 +4,9 @@ function [ display ] = addControls( display )
 
 %Draw a box for the eraser
 for i = 68:102;
-    display(i, 204, :) = [1 1 1];
-    display(i, 203, :) = [1 1 1];
+    for c = [1 2 3]
+        display(i, 204, c) = 1;
+        display(i, 203, :) = 1;
 end
 for i = 204:228;
     display(68, i, :) = [1 1 1];
@@ -27,7 +28,7 @@ xPoints = [10 4; 10 5; 10 16; 10 17;
     23 4; 23 5; 23 16; 23 17];
 
 for i = 1:76
-    display(68 + xPoints(i, 1), 204 + xPoints(i, 2), 1) = display(68 + xPoints(i, 1), 204 + xPoints(i, 2), 1) + .8;
+    display(68 + xPoints(i, 1), 204 + xPoints(i, 2), 2) = display(68 + xPoints(i, 1), 204 + xPoints(i, 2), 2) + .8;
 end
 
 

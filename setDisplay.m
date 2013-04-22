@@ -1,5 +1,8 @@
 %function display = setDisplay(display, laserX, laserY)
-function display = setDisplay(display, pen, laserX, laserY, live)
+function [display, pen] = setDisplay(display, pen, laserX, laserY, live)
+if display(70, 220, 2) < .9
+    display = addControls(display);
+end
 %laser is in the control panel
 if laserX > 68 && laserY > 204
     %laser is in the eraser
@@ -7,13 +10,13 @@ if laserX > 68 && laserY > 204
     display = addControls(display);
 elseif laserX < 34 && laserY > 180
         %laser is in the palatte
-        %change pen to a new color
+        pen = [0, (laserY - 180)/49, laserX/35];
 else 
     %laser is in drawing panel
     for i = [1 2 3]
-        for x = [-1 0 0 1]
-            for y = [-1 0 0 1]
-                display(laserX + x, laserY + y, i) = display(laserX + x, laserY + y, i) + pen(i)/4;
+        for x = [-2 -1 -1 0 0 0 1 1 2]
+            for y = [-2 -1 -1 0 0 0 1 1 2]
+                display(laserX + x, laserY + y, i) = display(laserX + x, laserY + y, i) + pen(i)/6;
                 if display(laserX + x, laserY + y, i) > 1
                     display(laserX + x, laserY + y, i) = 1;
                 end
@@ -24,15 +27,21 @@ else
 end
 
 if live == 1
+    for x = 1:102
+        for y = 1:228
+            for c = [1 2 3]
+                if display(x, y, c) < 0
+                    display(x, y, c) = 0;
+                elseif display(x, y, c) > 1
+                    display(x, y, c) = 1.0;
+                end
+            end
+        end
+    end
     im = permute(display, [2, 1, 3]);
     imagesc(im);
-    axis image
+    set(gca,'XTickLabel',''...
+        gca,'YTickLabel','')
 end
 
-display;
 
-
-
-
-function display = drawPoint(display, laserX, laserY, pen)
-display;
