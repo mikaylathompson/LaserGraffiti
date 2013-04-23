@@ -1,6 +1,6 @@
 %function display = setDisplay(display, laserX, laserY)
 function [display, pen] = setDisplay(display, pen, laserX, laserY, live)
-if display(70, 220, 2) < .9
+if display(82, 216, 2) < .1
     display = addControls(display);
 end
 %laser is in the control panel
@@ -40,8 +40,8 @@ if live == 1
     end
     im = permute(display, [2, 1, 3]);
     imagesc(im);
-    set(gca,'XTickLabel',''...
-        gca,'YTickLabel','')
+    set(gca,'XTickLabel','');
+    set(gca,'YTickLabel','');
 end
 
 
